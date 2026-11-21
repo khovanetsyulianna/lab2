@@ -1,5 +1,5 @@
 
-### 1. Створити книгу
+### 1. Створити першу книгу
 POST http://localhost:8080/api/books
 Content-Type: application/json
 
@@ -8,7 +8,7 @@ Content-Type: application/json
   "author": "J.K. Rowling"
 }
 
-### 2. Створити книгу
+### 2. Створити другу книгу
 POST http://localhost:8080/api/books
 Content-Type: application/json
 
@@ -17,7 +17,7 @@ Content-Type: application/json
   "author": "J.R.R. Tolkien"
 }
 
-### 3. Створити книгу
+### 3. Створити третю книгу
 POST http://localhost:8080/api/books
 Content-Type: application/json
 
@@ -60,10 +60,43 @@ GET http://localhost:8080/api/readers/1/reliability
 GET http://localhost:8080/api/readers/1/loans/active
 
 ### 11. Повернути книгу
-POST http://localhost:8080/api/loans/1/return
+POST http://localhost:8080/api/loans/2/return
 
 ### 12. Перевірити активні позики після повернення
 GET http://localhost:8080/api/readers/1/loans/active
 
 ### 13. Перевірити історію видач
 GET http://localhost:8080/api/loans
+
+### 14. Спробувати повторно повернути книгу
+POST http://localhost:8080/api/loans/2/return
+
+### 15. Перевірити, що не можна видати вже видану книгу
+POST http://localhost:8080/api/loans
+Content-Type: application/json
+
+{
+  "bookId": 1,
+  "readerId": 1
+}
+
+### 16. Перевірити обмеження кількості книг
+### Для цього потрібно видати читачеві дві різні книги.
+### Третя спроба видачі звичайному читачеві має завершитися помилкою.
+
+POST http://localhost:8080/api/loans
+Content-Type: application/json
+
+{
+  "bookId": 2,
+  "readerId": 1
+}
+
+### Спроба видати третю книгу
+POST http://localhost:8080/api/loans
+Content-Type: application/json
+
+{
+  "bookId": 3,
+  "readerId": 1
+}

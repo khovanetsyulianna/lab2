@@ -157,22 +157,18 @@ public class ReaderService {
         return isReaderReliable(readerId) ? 5 : 2;
     }
 
+
     @Transactional(readOnly = true)
     public List<LoanResponse> getActiveLoans(Long readerId) {
 
         getReaderEntityById(readerId);
 
         List<Loan> loans =
-                loanRepository
-                        .findByReaderIdAndReturnedDateIsNull(
-                                readerId
-                        );
+                loanRepository.findByReaderIdAndReturnedDateIsNull(readerId);
 
-        List<LoanResponse> result =
-                new ArrayList<>();
+        List<LoanResponse> result = new ArrayList<>();
 
         for (Loan loan : loans) {
-
             result.add(new LoanResponse(
                     loan.getId(),
                     loan.getBook().getId(),

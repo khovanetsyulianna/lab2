@@ -4,7 +4,6 @@ package org.example.controller;
 import org.example.dto.ReaderRequest;
 import org.example.dto.ReaderResponse;
 import org.example.dto.LoanResponse;
-import org.example.model.Reader;
 import org.example.service.ReaderService;
 
 import org.springframework.http.HttpStatus;
@@ -28,12 +27,9 @@ public class ReaderController {
     public ResponseEntity<ReaderResponse> registerReader(
             @RequestBody ReaderRequest request) {
 
-        ReaderResponse response =
-                readerService.registerReader(request);
-
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(response);
+                .body(readerService.registerReader(request));
     }
 
     @GetMapping
@@ -45,20 +41,13 @@ public class ReaderController {
     public Map<String, Object> checkReliability(
             @PathVariable Long readerId) {
 
-        Reader reader =
-                readerService.getReaderEntityById(readerId);
-
         boolean reliable =
                 readerService.isReaderReliable(readerId);
 
-        int maxBooks = reliable ? 5 : 2;
-
         return Map.of(
-                "readerId", reader.getId(),
-                "fullName", reader.getFullName(),
-                "email", reader.getEmail(),
+                "readerId", readerId,
                 "reliable", reliable,
-                "maxBooksAllowed", maxBooks
+                "maxBooksAllowed", reliable ? 5 : 2
         );
     }
 
