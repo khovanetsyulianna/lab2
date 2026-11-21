@@ -1,0 +1,69 @@
+
+### 1. Створити книгу
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "Harry Potter and the Philosopher's Stone",
+  "author": "J.K. Rowling"
+}
+
+### 2. Створити книгу
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "The Hobbit",
+  "author": "J.R.R. Tolkien"
+}
+
+### 3. Створити книгу
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "1984",
+  "author": "George Orwell"
+}
+
+### 4. Переглянути всі книги
+GET http://localhost:8080/api/books
+
+### 5. Зареєструвати читача
+POST http://localhost:8080/api/readers
+Content-Type: application/json
+
+{
+  "fullName": "Юліанна Хованець",
+  "email": "yulianna.khovanets@example.com"
+}
+
+### 6. Переглянути всіх читачів
+GET http://localhost:8080/api/readers
+
+### 7. Видати книгу
+POST http://localhost:8080/api/loans
+Content-Type: application/json
+
+{
+  "bookId": 1,
+  "readerId": 1
+}
+
+### 8. Переглянути всі позики
+GET http://localhost:8080/api/loans
+
+### 9. Перевірити надійність читача
+GET http://localhost:8080/api/readers/1/reliability
+
+### 10. Переглянути активні позики читача
+GET http://localhost:8080/api/readers/1/loans/active
+
+### 11. Повернути книгу
+POST http://localhost:8080/api/loans/1/return
+
+### 12. Перевірити активні позики після повернення
+GET http://localhost:8080/api/readers/1/loans/active
+
+### 13. Перевірити історію видач
+GET http://localhost:8080/api/loans
